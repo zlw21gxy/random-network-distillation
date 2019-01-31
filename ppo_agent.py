@@ -55,7 +55,7 @@ class InteractionState(object):
         self.buf_new_last = self.buf_news[:, 0, ...].copy()
         self.buf_vpred_int_last = self.buf_vpreds_int[:, 0, ...].copy()
         self.buf_vpred_ext_last = self.buf_vpreds_ext[:, 0, ...].copy()
-        self.step_count = 0 # counts number of timesteps that you've interacted with this set of environments
+        self.step_count = 0  # counts number of timesteps that you've interacted with this set of environments
         self.t_last_update = time.time()
         self.statlists = defaultdict(lambda : deque([], maxlen=100)) # Count other stats, e.g. optimizer outputs
         self.stats = defaultdict(float) # Count episodes and timesteps
