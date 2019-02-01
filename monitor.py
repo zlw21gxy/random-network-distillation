@@ -139,9 +139,11 @@ def load_results(dir):
     return df
 
 def test_monitor():
-    env = gym.make("CartPole-v1")
+    # env = gym.make("CartPole-v1")
+    env = gym.make('MontezumaRevengeNoFrameskip-v4')
     env.seed(0)
     mon_file = "/tmp/baselines-test-%s.monitor.csv" % uuid.uuid4()
+    # mon_file
     menv = Monitor(env, mon_file)
     menv.reset()
     for _ in range(1000):
@@ -156,7 +158,8 @@ def test_monitor():
     metadata = json.loads(firstline[1:])
     assert metadata['env_id'] == "CartPole-v1"
     assert set(metadata.keys()) == {'env_id', 'gym_version', 't_start'},  "Incorrect keys in monitor metadata"
-
+    import pandas
+    import os
     last_logline = pandas.read_csv(f, index_col=None)
     assert set(last_logline.keys()) == {'l', 't', 'r'}, "Incorrect keys in monitor logline"
     f.close()

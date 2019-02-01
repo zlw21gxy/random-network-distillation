@@ -37,7 +37,8 @@ def mlp(input_size=(28, 28), output_size=10):
 input_ph, output_pred, is_train = mlp()
 output_ba = tf.placeholder(dtype='int32', shape=(None,))  # label
 output_ph = tf.one_hot(output_ba, 10)   # one hot label,ground truth
-loss = tf.losses.softmax_cross_entropy(output_ph, output_pred)  # different between ground truth and predict
+# loss = tf.losses.softmax_cross_entropy(output_ph, output_pred)  # different between ground truth and predict
+loss = tf.losses.cosine_distance(output_ph, output_pred, axis=0)
 update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
 with tf.control_dependencies(update_ops):
     opt = tf.train.AdamOptimizer(learning_rate=3e-4).minimize(loss)
@@ -69,7 +70,7 @@ for t in range(time_step):
         test_acc = sum(y_pre == y_test) / len(y_test)
         print(t)
         print('loss:{0:.9f} train_accuray:{1:.9f} test_accuracy:{2:.9f}'.format(l_train, train_acc, test_acc))
-        saver.save(sess, './tmp/model_1/model_shirt.ckpt')
+        saver.save(sess, './tmp/model_cos/model_shirt.ckpt')
         acc_col_test.append(test_acc)
         acc_col_train.append(train_acc)
         loss_col.append(l_train)

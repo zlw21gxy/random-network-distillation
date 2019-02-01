@@ -5,7 +5,7 @@ import os
 import pickle
 import sys
 
-import exptag
+# import exptag
 import ipdb
 import numpy as np
 from atari_wrappers import make_atari, wrap_deepmind
@@ -193,7 +193,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     add_env_params(parser)
     parser.add_argument('--filter', type=str, default='none')
-    parser.add_argument('--rew_min', type=int, default=0)
+    parser.add_argument('--rew_min', type=int, default=0)   # 0
     parser.add_argument('--rew_max', type=int, default=np.inf)
     parser.add_argument('--tag', type=str, default=None)
     parser.add_argument('--kind', type=str, default='plot')
@@ -204,7 +204,9 @@ if __name__ == '__main__':
 
 
     args = parser.parse_args().__dict__
-    folder = exptag.get_last_experiment_folder_by_tag(args['tag'])
+    # folder = exptag.get_last_experiment_folder_by_tag(args['tag'])
+    # folder = '/home/gu/openai-2019-01-25-17-33-15-720176'
+    folder = '/tmp/openai-2019-02-01-15-39-59-973787'
 
     def date_from_folder(folder):
         assert folder.startswith('openai-')
@@ -240,7 +242,8 @@ if __name__ == '__main__':
         import imageio
         import time
         for i, episode in enumerate(episodes):
-            filename = os.path.expanduser('~/tmp/movie_{}.mp4'.format(time.time()))
+            #filename = os.path.expanduser('~/tmp/movie_{}.mp4'.format(time.time()))
+            filename = os.path.expanduser('/home/gu/movie_{}.mp4'.format(time.time()))
             imageio.mimwrite(filename, episode["obs"], fps=30)
             print(filename)
 
